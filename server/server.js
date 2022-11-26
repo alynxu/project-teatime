@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const { join } = require("path");
 
-const mongoose = require('./config/database');
+const mongoose = require('./config/dbconnect');
 
 const user = require('./routes/user');
 
