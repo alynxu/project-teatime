@@ -1,5 +1,29 @@
 # CS 5610 Project Proposal - Teatime
+Forked from previous team repo. Xiyou(Alyn) Xu will continue this project individually since iteration 1. 
+- Currently it is for iteration 2, frontend and backend are successfully connected. The routes and api for User part is done. Once the user sign up, the user data will be saved into database. Then the user will be able to update their profile at the Profile page of the website. (first CRUD achieved)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Below this line is previous stage 
+----------------------------------------------------------------------------------------
+# Project Proposal, with iteration 1 summary 
 ## Clarify your target audience (Jieyu)
 ### What are your application users' needs and pain points?
 Our application's target users are people who love tea and have a preference for tea drinks with caffeine or milk. 
