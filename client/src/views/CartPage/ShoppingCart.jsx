@@ -4,8 +4,13 @@ import { message } from "antd";
 import "../CartPage/ShoppingCart.scss";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { connect } from "react-redux";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 import ShoppingTable from "./ShoppingTable";
-const ShoppingCart = ({ cart }) => {
+import { emptyCart } from "../../redux/Shopping/shopping-actions";
+
+const ShoppingCart = ({ cart, emptyCart }) => {
+  const { user } = useAuth0();
 
   const history = useHistory();
   const subtotal = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
@@ -14,6 +19,26 @@ const ShoppingCart = ({ cart }) => {
   const num = subtotal * 0.05;
   const tax = num.toFixed(2);
   const totalPrice = subtotal + shipping;
+
+  const checkoutHandler = async () => {
+    if (!user) {
+      message.error("Please login to continue");
+      return;
+    }
+    const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/order`, {
+      userId: user.sub.split("|")[1],
+      products: cart,
+      order_total: totalPrice,
+    });
+    if (res.data.ok) {
+      message.success("Order is successfully placed", 1);
+      history.push("/orders");
+      emptyCart();
+    } else {
+      message.error("Something went wrong, please try again", 1);
+    }
+  };
+
   return (
     <Fragment>
       Your Shopping Cart:
@@ -74,14 +99,7 @@ const ShoppingCart = ({ cart }) => {
               <MdOutlineArrowBackIosNew size={12} />
               Continue Shopping
             </button>
-            <button
-              onClick={() => {
-                //displaying the message and redirecting to the orders page after 1 seconds
-                message.success("Order is successfully placed", 1, () => {
-                  history.push("/orders");
-                });
-              }}
-            >Go to Checkout</button>
+            <button onClick={checkoutHandler}>Go to Checkout</button>
           </div>
         </div>
       </div>
@@ -93,4 +111,11 @@ const mapStateToProps = (state) => {
     cart: state.shop.cart,
   };
 };
-export default connect(mapStateToProps)(ShoppingCart);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    emptyCart: () => dispatch(emptyCart()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);
