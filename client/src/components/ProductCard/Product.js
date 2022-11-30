@@ -1,3 +1,6 @@
+import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { message } from "antd";
 import { Col } from "reactstrap";
 import { Button } from "reactstrap";
 import { FaRegHeart } from "react-icons/fa";
@@ -5,9 +8,18 @@ import { NavLink as RouterNavLink } from "react-router-dom";
 import { NavLink } from "reactstrap";
 import { connect } from "react-redux";
 import { addToCart } from "../../redux/Shopping/shopping-actions";
-import React from "react";
 
-function Product({product, addToCart}) {
+function Product({ product, addToCart }) {
+  const { user } = useAuth0();
+
+  const addToCartHandler = () => {
+    if (!user) {
+      message.error("Please login to add to cart");
+      return;
+    }
+    addToCart(product.id);
+  };
+
   return (
     <>
         <Col>
@@ -19,7 +31,12 @@ function Product({product, addToCart}) {
               padding: 0,
             }}
           >
-            <img width="200px" height="280px" src={product.imageUrl} alt={`${product.name}`} />
+          <img
+            width="200px"
+            height="280px"
+            src={product.imageUrl}
+            alt={`${product.name}`}
+          />
           </NavLink>
           <h3>{product.name}</h3>
           <div>
@@ -30,7 +47,7 @@ function Product({product, addToCart}) {
           <Button
             color="primary"
             className="btn-margin"
-            onClick={() => addToCart(product.id)}
+            onClick={addToCartHandler}
           >
             Add to Cart
           </Button>
