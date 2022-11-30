@@ -94,7 +94,6 @@ const ShoppingCart = ({ cart, emptyCart }) => {
 
           {/* BUTTONS */}
           <div className="bottom_buttons">
-            <button><MdOutlineArrowBackIosNew size={12} />Continue Shopping</button>
             <button>
               <MdOutlineArrowBackIosNew size={12} />
               Continue Shopping

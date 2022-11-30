@@ -1,19 +1,18 @@
 import React from "react";
+import { message } from "antd";
 import { Row, Col, Input } from "reactstrap";
 import { Form, FormGroup, Button } from "react-bootstrap";
 import Loading from "../../components/Loading";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-const baseUrl = "http://localhost:3002/user/";
-let udpateSuccessMsg = null;
+const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/user/`;
 
 export const ProfileComponent = () => {
   const { user, isAuthenticated } = useAuth0();
 
   // var userData = null;
-
 
   const [userData, setUserData] = useState({});
 
@@ -24,7 +23,6 @@ export const ProfileComponent = () => {
   //   location: ""
   // });
 
-
   const handleValidation = (e) => {
     const { name, value } = e.target;
     // setformvalue({ ...formvalue, [name]: value });
@@ -34,16 +32,16 @@ export const ProfileComponent = () => {
   };
 
   function getUserData() {
-    console.log('function call, getUserData()');
+    console.log("function call, getUserData()");
     var requestOptions = {
-      method: 'GET'
+      method: "GET",
     };
 
     fetch(baseUrl + "get-by-email?email=" + user.email, requestOptions)
-      .then(response => response.text())
+      .then((response) => response.text())
       .then((result) => {
         result = JSON.parse(result);
-        console.log('result', result);
+        console.log("result", result);
         setUserData(result);
         // setformvalue({
         //   given_name: result.given_name || "",
@@ -52,16 +50,14 @@ export const ProfileComponent = () => {
         //   location: result.location || "",
         // });
       })
-      .catch(error => console.log('error', error));
+      .catch((error) => console.log("error", error));
   }
 
   useEffect(() => {
     getUserData();
   }, []);
 
-
   function submitHandler(e) {
-
     e.preventDefault();
 
     var myHeaders = new Headers();
@@ -71,19 +67,22 @@ export const ProfileComponent = () => {
       method: "PUT",
       headers: myHeaders,
       // body: formvalue
-      body: JSON.stringify(userData)
+      body: JSON.stringify(userData),
     };
 
-    console.log('requestOptions', requestOptions);
+    console.log("requestOptions", requestOptions);
 
     fetch(baseUrl + "update-by-email?email=" + user.email, requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        console.log('result', result);
-        console.log('Profile updated successfully');
-        udpateSuccessMsg = 'Profile updated successfully';
+        console.log("result", result);
+        console.log("Profile updated successfully");
+        message.success("Profile updated successfully");
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        message.error("Error in updating profile");
+      });
   }
 
   return (
@@ -91,13 +90,12 @@ export const ProfileComponent = () => {
       <Form
         onSubmit={(e) => {
           submitHandler(e);
-        }} >
+        }}
+      >
         <Row>
           <Col md={6}>
             <FormGroup>
-              <label htmlFor="Given Name">
-                Given Name
-              </label>
+              <label htmlFor="Given Name">Given Name</label>
               <Input
                 id="givenName"
                 name="given_name"
@@ -109,9 +107,7 @@ export const ProfileComponent = () => {
           </Col>
           <Col md={6}>
             <FormGroup>
-              <label htmlFor="Family Name">
-                Family Name
-              </label>
+              <label htmlFor="Family Name">Family Name</label>
               <Input
                 id="familyName"
                 name="family_name"
@@ -126,9 +122,7 @@ export const ProfileComponent = () => {
         <Row>
           <Col md={6}>
             <FormGroup>
-              <label htmlFor="exampleAddress">
-                Email Address
-              </label>
+              <label htmlFor="exampleAddress">Email Address</label>
               <Input
                 disabled
                 id="exampleEmail"
@@ -139,9 +133,7 @@ export const ProfileComponent = () => {
           </Col>
           <Col md={6}>
             <FormGroup>
-              <label htmlFor="phoneNumber">
-                Phone Number
-              </label>
+              <label htmlFor="phoneNumber">Phone Number</label>
               <Input
                 id="phoneNumber"
                 name="phone_number"
@@ -154,9 +146,7 @@ export const ProfileComponent = () => {
         </Row>
 
         <FormGroup>
-          <label htmlFor="location">
-            Location
-          </label>
+          <label htmlFor="location">Location</label>
           <Input
             id="location"
             name="location"
@@ -170,7 +160,7 @@ export const ProfileComponent = () => {
         </Button>
       </Form>
     )
-  )
+  );
 };
 
 export default withAuthenticationRequired(ProfileComponent, {
