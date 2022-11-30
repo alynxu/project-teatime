@@ -34,3 +34,9 @@ export const loadCurrentItem = (item) => {
     payload: item,
   };
 };
+
+export const emptyCart = (cartItems) => {
+  return {
+    type: actionTypes.EMPTY_CART,
+  };
+};
