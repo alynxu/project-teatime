@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
-import Products from "../../components/ProductCard/Products"
+import { Link } from "react-router-dom";
+import Products from "../../components/ProductCard/Products";
 
 const Coffee = () => (
-
   <Fragment>
     <div>
-        <a href={`/menu`}>Categories</a> / Coffee
+      <Link to={`/menu`}>Categories</Link> / Coffee
     </div>
     <div>
       <Products />

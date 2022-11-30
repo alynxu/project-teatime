@@ -1,9 +1,14 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import Products from "../../components/ProductCard/Products";
 
 const Milktea = () => (
   <Fragment>
     <div>
-    <a href={`/menu`}>Categories</a> / Milktea
+      <Link to={`/menu`}>Categories</Link> / Milktea
+    </div>
+    <div>
+      <Products />
     </div>
   </Fragment>
 );
