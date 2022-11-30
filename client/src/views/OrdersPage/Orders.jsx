@@ -1,8 +1,10 @@
 import React, { Fragment } from "react";
+import OrderCard from "../../components/OrderCard/OrderCard";
 
 const Orders = () => (
   <Fragment>
-    Your Orders:
+    <h1 style={{ color: "#010952" }}>Orders</h1>
+    <OrderCard />
   </Fragment>
 );
 

@@ -1,15 +1,15 @@
 import React, { Fragment } from "react";
+import { useHistory } from "react-router-dom";
+import { message } from "antd";
 import "../CartPage/ShoppingCart.scss";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { connect } from "react-redux";
 import ShoppingTable from "./ShoppingTable";
 const ShoppingCart = ({ cart }) => {
 
-  const subtotal = cart.reduce(
-    (acc, item) => acc + item.qty * item.price,
-    0
-  );
-  
+  const history = useHistory();
+  const subtotal = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
+
   const shipping = 2;
   const num = subtotal * 0.05;
   const tax = num.toFixed(2);
@@ -70,7 +70,18 @@ const ShoppingCart = ({ cart }) => {
           {/* BUTTONS */}
           <div className="bottom_buttons">
             <button><MdOutlineArrowBackIosNew size={12} />Continue Shopping</button>
-            <button>Go to Checkout</button>
+            <button>
+              <MdOutlineArrowBackIosNew size={12} />
+              Continue Shopping
+            </button>
+            <button
+              onClick={() => {
+                //displaying the message and redirecting to the orders page after 1 seconds
+                message.success("Order is successfully placed", 1, () => {
+                  history.push("/orders");
+                });
+              }}
+            >Go to Checkout</button>
           </div>
         </div>
       </div>
