@@ -2,9 +2,14 @@
 Forked from previous team repo. Xiyou(Alyn) Xu will continue this project individually since iteration 1. (by Mon Nov 28th) 
 - Currently it is for iteration 2, frontend and backend are successfully connected. The routes and api for User part is done. Once the user sign up, the user data will be saved into database. Then the user will be able to update their profile at the Profile page of the website. (first CRUD achieved)
 
-Progress in iteration2 updated by Wed Nov 30th: 
+## Progress in iteration2 updated by Wed Nov 30th: 
 1. Great news: the website is successfully deployed.
 - Deployed website URL: https://teatime.onrender.com
+
+<img width="1277" alt="WechatIMG270" src="https://user-images.githubusercontent.com/113411833/204982113-1b1dec8b-1de4-4eb5-9c59-d9cc5316940f.png">
+<img width="1456" alt="WechatIMG271" src="https://user-images.githubusercontent.com/113411833/204982520-b67004e1-88b0-4f86-a6da-db022b391e57.png">
+
+- GitHub Repo Link(used for deployment): https://github.com/alynxu/project-teatime
 
 2. Successfully connected with Mongodb database through Auth0 authenciation. 
 - Once the user sign up, it will automatically create the user profile.(please use standard sign-up, sometimes the google associated sign-up/sign-in doesn't work but it works well using the standard sign-up/sign-in)
@@ -20,7 +25,7 @@ Progress in iteration2 updated by Wed Nov 30th:
 - Products are mapped into 4 different categoies. Each category page contains all the products of that specific category.
 - Single product detail page added for each product. In this page, it shows the product image, product name, and product price. The user is able to click the "add to card" button and items in the shopping cart will automatically be counted and showing as number in red badge.
 
-Plans for iteration3:
+## Plans for iteration3:
 1. Clarified with Neda that I will include "edit/delete" feature either in switching the data on ShoppingCart page from localStorage to save it into database, or I will have an admin user identity verification and then allow the admin user to edit/delete the current products.
 - Haven't decided which one will go, but confirmed with Neda that either one would be fine to fulfill the "CRUD" requirement on main functionality.
 
