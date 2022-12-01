@@ -7,7 +7,7 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 import { useEffect, useState } from "react";
 
-const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/user/`;
+const baseUrl = "http://localhost:3002/user/";
 
 export const ProfileComponent = () => {
   const { user, isAuthenticated } = useAuth0();
