@@ -1,14 +1,43 @@
 # CS 5610 Project Proposal - Teatime
-Forked from previous team repo. Xiyou(Alyn) Xu will continue this project individually since iteration 1. 
+Forked from previous team repo. Xiyou(Alyn) Xu will continue this project individually since iteration 1. (by Mon Nov 28th) 
 - Currently it is for iteration 2, frontend and backend are successfully connected. The routes and api for User part is done. Once the user sign up, the user data will be saved into database. Then the user will be able to update their profile at the Profile page of the website. (first CRUD achieved)
 
+## Progress in iteration2 updated by Wed Nov 30th: 
+1. Great news: the website is successfully deployed.
 
+- Deployed website URL: https://teatime.onrender.com
+<img width="1277" alt="WechatIMG270" src="https://user-images.githubusercontent.com/113411833/204982113-1b1dec8b-1de4-4eb5-9c59-d9cc5316940f.png">
+<img width="1456" alt="WechatIMG271" src="https://user-images.githubusercontent.com/113411833/204982520-b67004e1-88b0-4f86-a6da-db022b391e57.png">
 
+- GitHub Repo Link(used for deployment): https://github.com/alynxu/project-teatime
 
+2. Successfully connected with Mongodb database through Auth0 authenciation. 
+- Once the user sign up, it will automatically create the user profile.(please use standard sign-up, sometimes the google associated sign-up/sign-in doesn't work but it works well using the standard sign-up/sign-in)
+- After sign-up/sign-in, when user click "Profile" in the dropdown menu at the top right corner, the users are able to update their profile by clicking the "Update the Profile" button.
+- After sign-up/sign-in, when user click "Orders" in the dropdown menu at the top right corner, the users able to read the list of all the orders that the user has been placed.
+- In shopping cart page(click the shopping cart button in the top), the user can edit quantity of items in the cart or delete the items in the cart.(data saved in localStorage only for now, not in database). Once the user click "Continue to Checkout", the order will be created and saved in the database. The users can track their orders later on.
 
+3. User identity verification added.
+- The user has to log in before the user can add produst to the cart.
+- The user has to log in before the suer can continue to checkout. (In case the user added items into cart then logged out.)
 
+4. Manged products pages.
+- Products are mapped into 4 different categoies. Each category page contains all the products of that specific category.
+- Single product detail page added for each product. In this page, it shows the product image, product name, and product price. The user is able to click the "add to card" button and items in the shopping cart will automatically be counted and showing as number in red badge.
 
+## Plans for iteration3:
+1. Clarified with Neda that I will include "edit/delete" feature either in switching the data on ShoppingCart page from localStorage to save it into database, or I will have an admin user identity verification and then allow the admin user to edit/delete the current products.
+- Haven't decided which one will go, but confirmed with Neda that either one would be fine to fulfill the "CRUD" requirement on main functionality.
 
+2. Adjust profile pages to include more property of more specific user infomration(for example, split location into Province, City, Street)
+
+3. Have a better formatted Contact page, using an external API(Google Map).
+
+4. Complete search feature on homepage and the search results page.
+
+5. Styling all pages to follow the UI sketch styles.
+
+Eveything should be done in iteration3. If I have more time, will include another collection of "favorites" so that the user can create/delete their favorite prodcut in the favorites collection.
 
 
 
