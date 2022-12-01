@@ -43,13 +43,19 @@ app.use(
   })
 );
 
-app.use(express.static(join(__dirname, "build")));
+app.use(express.static(join(__dirname, "../client", "build")));
+console.log(join(__dirname, "../client", "build"));
+
 app.get("/", (req, res) => {
+  res.sendFile(join(__dirname, "../client", "build", "index.html"));
+});
+
+app.get("/api", (req, res) => {
   res.send("API is working properly");
 });
 
-app.use("/user", user);
-app.use("/order", order);
+app.use("/api/user", user);
+app.use("/api/order", order);
 
 mongoose.connection.on(
   "error",
