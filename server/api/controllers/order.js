@@ -1,5 +1,4 @@
 const orderModel = require("../models/order");
-const userModel = require("../models/user");
 
 module.exports = {
   create: function (req, res, next) {

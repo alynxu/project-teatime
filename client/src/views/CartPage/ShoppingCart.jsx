@@ -4,14 +4,15 @@ import { message } from "antd";
 import "../CartPage/ShoppingCart.scss";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { connect } from "react-redux";
+
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import ShoppingTable from "./ShoppingTable";
 import { emptyCart } from "../../redux/Shopping/shopping-actions";
 
 const ShoppingCart = ({ cart, emptyCart }) => {
   const { user } = useAuth0();
-
   const history = useHistory();
   const subtotal = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
 
@@ -25,6 +26,10 @@ const ShoppingCart = ({ cart, emptyCart }) => {
       message.error("Please login to continue");
       return;
     }
+    if (cart.length === 0) {
+      message.info("Please add items to cart");
+      return;
+    }
     const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/order`, {
       userId: user.sub.split("|")[1],
       products: cart,
@@ -32,13 +37,12 @@ const ShoppingCart = ({ cart, emptyCart }) => {
     });
     if (res.data.ok) {
       message.success("Order is successfully placed", 1);
-      history.push("/orders");
+      history.push("/order/completed");
       emptyCart();
     } else {
       message.error("Something went wrong, please try again", 1);
     }
   };
-
   return (
     <Fragment>
       Your Shopping Cart:
@@ -56,9 +60,6 @@ const ShoppingCart = ({ cart, emptyCart }) => {
           {cart.map((item) => (
             <ShoppingTable key={item.id} item={item} />
           ))}
-
-
-
 
           {/* TOTAL */}
           <div className="t_total">
@@ -94,7 +95,7 @@ const ShoppingCart = ({ cart, emptyCart }) => {
 
           {/* BUTTONS */}
           <div className="bottom_buttons">
-            <button>
+            <button onClick={() => history.push("/menu")}>
               <MdOutlineArrowBackIosNew size={12} />
               Continue Shopping
             </button>
@@ -103,8 +104,8 @@ const ShoppingCart = ({ cart, emptyCart }) => {
         </div>
       </div>
     </Fragment>
-  )
-}
+  );
+};
 const mapStateToProps = (state) => {
   return {
     cart: state.shop.cart,

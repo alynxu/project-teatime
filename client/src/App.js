@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Router, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
+
 import Loading from "./components/Loading";
 import NavBar from "./components/Navbar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -10,6 +11,7 @@ import Menu from "./views/MenuPage/Menu";
 import Contact from "./views/ContactPage/Contact";
 import Profile from "./views/ProfilePage/Profile";
 import Orders from "./views/OrdersPage/Orders";
+import OrderCompleted from "./views/OrderCompletedPage/OrderCompleted";
 import Rewards from "./views/RewardsPage/Rewards";
 import Favorites from "./views/FavoritesPage/Favorites";
 import Coffee from "../src/components/CategoryPages/Coffee";
@@ -64,6 +66,7 @@ const App = ({ cart, updateCart }) => {
             <Route path="/contact" exact component={Contact} />
             <Route path="/profile" component={Profile} />
             <Route path="/orders" component={Orders} />
+            <Route path="/order/completed" component={OrderCompleted} />
             <Route path="/rewards" component={Rewards} />
             <Route path="/favorites" component={Favorites} />
             <Route path="/categories/coffee" component={Coffee} />
@@ -71,7 +74,7 @@ const App = ({ cart, updateCart }) => {
             <Route path="/categories/tea" component={Tea} />
             <Route path="/categories/smoothies" component={Smoothies} />
             <Route path="/shoppingcart" component={ShoppingCart} />
-            <Route path="/products/2" component={Details} />
+            <Route path="/products/:id" component={Details} />
           </Switch>
         </Container>
         <Footer />

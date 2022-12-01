@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Container, Row } from "reactstrap";
 import styled from "styled-components";
+import moment from "moment";
 
 const Image = styled.img`
   width: 200px;
@@ -13,6 +14,7 @@ const ImageContainer = styled.div`
   border-radius: 10px;
   overflow: hidden;
   margin: 10px 0;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Button = styled.button`
@@ -31,7 +33,7 @@ const Button = styled.button`
   }
 `;
 
-const OrderCard = () => {
+const OrderCard = ({ orderNumber, orderDate, orderTotal, orderItems }) => {
   return (
     <Container
       style={{
@@ -42,24 +44,23 @@ const OrderCard = () => {
         margin: "20px 0",
       }}
     >
-      <h1 style={{ color: "#010952" }}>Order Number: 000321</h1>
+      <h3 style={{ color: "#010952" }}>Order Number: {orderNumber}</h3>
       <div style={{ margin: "16px 0" }}>
-        <h5 style={{ color: "#010952" }}>Order Date: 20 December 2021</h5>
-        <h5 style={{ color: "#010952" }}>Order Total: $12.88</h5>
+        <h5 style={{ color: "#010952" }}>
+          Order Date: {moment(orderDate).format("LL")}
+        </h5>
+        <h5 style={{ color: "#010952" }}>Order Total: ${orderTotal}</h5>
       </div>
       <Row md={2} style={{ padding: "16px 0" }}>
         <Col>
           <Row xs={2}>
-            <Col style={{ width: "fit-content" }}>
-              <ImageContainer>
-                <Image src="https://i.ibb.co/grdgQdM/blacktea.jpg" alt="" />
-              </ImageContainer>
-            </Col>
-            <Col style={{ width: "fit-content" }}>
-              <ImageContainer>
-                <Image src="https://i.ibb.co/grdgQdM/blacktea.jpg" alt="" />
-              </ImageContainer>
-            </Col>
+            {orderItems.map((item, index) => (
+              <Col key={index} style={{ width: "fit-content" }}>
+                <ImageContainer>
+                  <Image src={item.imageUrl} alt="" />
+                </ImageContainer>
+              </Col>
+            ))}
           </Row>
         </Col>
         <Col
