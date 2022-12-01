@@ -7,7 +7,7 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 import { useEffect, useState } from "react";
 
-const baseUrl = "http://localhost:3002/user/";
+const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/user/`;
 
 export const ProfileComponent = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -28,7 +28,7 @@ export const ProfileComponent = () => {
     // setformvalue({ ...formvalue, [name]: value });
     const update = {};
     update[name] = value;
-    setUserData(update);
+    setUserData((prevData) => ({ ...prevData, ...update }));
   };
 
   function getUserData() {
