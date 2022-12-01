@@ -34,3 +34,16 @@ export const loadCurrentItem = (item) => {
     payload: item,
   };
 };
+
+export const updateCart = (cartItems) => {
+  return {
+    type: actionTypes.UPDATE_CART,
+    payload: cartItems,
+  };
+};
+
+export const emptyCart = (cartItems) => {
+  return {
+    type: actionTypes.EMPTY_CART,
+  };
+};

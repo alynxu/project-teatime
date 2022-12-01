@@ -1,8 +1,13 @@
-import React from 'react';
-import 'antd/dist/antd.css';
-import { Button } from 'antd';
+import React, { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useParams } from "react-router-dom";
+import { connect } from "react-redux";
+import { message } from "antd";
+import "antd/dist/antd.css";
 import styled from "styled-components";
 import { mobile } from "../../responsive";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { addToCart } from "../../redux/Shopping/shopping-actions";
 
 const Container = styled.div``;
 
@@ -14,6 +19,9 @@ const Wrapper = styled.div`
 
 const ImgContainer = styled.div`
   flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 `;
 
 const Image = styled.img`
@@ -27,11 +35,14 @@ const InfoContainer = styled.div`
   flex: 1;
   height: 400px;
   padding: 0px 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   ${mobile({ padding: "10px" })}
 `;
 
 const Title = styled.h1`
-  font-weight: 200;
+  font-weight: bold;
 `;
 
 const Desc = styled.p`
@@ -39,119 +50,106 @@ const Desc = styled.p`
 `;
 
 const Price = styled.span`
-  font-weight: 100;
+  font-weight: bold;
   font-size: 40px;
+  color: #fe5d2f;
 `;
-
-const FilterContainer = styled.div`
-  width: 50%;
-  margin: 20px 0px;
-  display: flex;
-  justify-content: space-between;
-  ${mobile({ width: "100%" })}
-`;
-
-const Filter = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const FilterTitle = styled.span`
-  font-size: 20px;
-  font-weight: 200;
-`;
-
-const FilterSize = styled.select`
-  margin-left: 10px;
-  padding: 5px;
-`;
-
-const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
-  width: 50%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 16px;
   ${mobile({ width: "100%" })}
 `;
 
-// const AddToCart = styled.button`
-//   padding: 15px;
-//   border: 2px solid orange;
-//   background-color: white;
-//   cursor: pointer;
-//   font-weight: 500;
-//   width: 250px;
+const Button = styled.button`
+  padding: 8px 46px;
+  background-color: #fe5d2f;
+  border: 2px solid #fe5d2f;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: transparent;
+    color: #fe5d2f;
+  }
+`;
 
-//   &:hover{
-//       background-color: #f8f4f4;
-//   }
-// `
-const Details = () => {
+const IconButton = styled.button`
+  padding: 8px 20px;
+  border: 2px solid grey;
+  border-radius: 30px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+`;
+
+const Details = ({ products, addToCart }) => {
+  const { user } = useAuth0();
+
+  const { id } = useParams();
+  const [product, setProduct] = useState();
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const desiredProduct = products.find(
+      (product) => product.id === parseInt(id)
+    );
+    setProduct(desiredProduct);
+  }, [id, products]);
+
+  const addToCartHandler = () => {
+    if (!user) {
+      message.error("Please login to add to cart");
+      return;
+    }
+    addToCart(product.id);
+  };
+
   return (
     <Container>
+      {product && (
+        <Wrapper>
+          <ImgContainer>
+            <Image src={product?.imageUrl} />
+          </ImgContainer>
+          <InfoContainer>
+            <Title>{product?.name}</Title>
+            <Price>${product?.price}</Price>
+            <Desc>{product?.description}</Desc>
 
-      <Wrapper>
-        <ImgContainer>
-          <Image src="https://i.ibb.co/CBBCN0F/coldbrew.png" />
-        </ImgContainer>
-        <InfoContainer>
-          <Title>Cold Brew</Title>
-          <Desc>
-            Cold Brew is iced coffee
-          </Desc>
-          <Price>$5.99</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Addons: </FilterTitle>
-              <Button>Boba</Button>
-              <Button>Jelly</Button>
-              <Button>Pudding</Button>
-            </Filter>
-
-          </FilterContainer>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Sugar Level: </FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>Normal</FilterSizeOption>
-                <FilterSizeOption>Light</FilterSizeOption>
-                <FilterSizeOption>Extra</FilterSizeOption>
-                <FilterSizeOption>None</FilterSizeOption>
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
-
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Ice Level: </FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>Normal</FilterSizeOption>
-                <FilterSizeOption>Light</FilterSizeOption>
-                <FilterSizeOption>Extra</FilterSizeOption>
-                <FilterSizeOption>None</FilterSizeOption>
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
-
-          <AddContainer>
-            <Button style={{
-              display: "flex",
-              textAlign: "center",
-              justifyContent: "center",
-              border: "2px solid orange",
-              backgroundColor: "white",
-              cursor: "pointer",
-              fontWeight: "500",
-              width: "570px",
-            }}
-            >ADD TO CART</Button>
-          </AddContainer>
-        </InfoContainer>
-      </Wrapper>
-    </Container >
+            <AddContainer>
+              <Button onClick={addToCartHandler}>Add to Cart</Button>
+              <IconButton
+                onClick={() => setIsFavorite((prevValue) => !prevValue)}
+              >
+                {!isFavorite && <HeartOutlined />}
+                {isFavorite && <HeartFilled style={{ color: "red" }} />}
+              </IconButton>
+            </AddContainer>
+          </InfoContainer>
+        </Wrapper>
+      )}
+      {!product && <h1>Product not found!</h1>}
+    </Container>
   );
 };
 
-export default Details;
+const mapStateToProps = (state) => {
+  return {
+    products: state.shop.products,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (id) => dispatch(addToCart(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

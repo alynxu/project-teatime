@@ -1,9 +1,14 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import Products from "../../components/ProductCard/Products";
 
 const Tea = () => (
   <Fragment>
     <div>
-    <a href={`/menu`}>Categories</a> /Tea
+      <Link to={`/menu`}>Categories</Link> /Tea
+    </div>
+    <div>
+      <Products />
     </div>
   </Fragment>
 );
