@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { mobile } from "../../responsive";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { addToCart } from "../../redux/Shopping/shopping-actions";
+import Button from "../../components/Shared/Button";
 
 const Container = styled.div``;
 
@@ -62,23 +63,8 @@ const AddContainer = styled.div`
   ${mobile({ width: "100%" })}
 `;
 
-const Button = styled.button`
-  padding: 8px 46px;
-  background-color: #fe5d2f;
-  border: 2px solid #fe5d2f;
-  color: #fff;
-  font-weight: 500;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  &:hover {
-    background-color: transparent;
-    color: #fe5d2f;
-  }
-`;
-
 const IconButton = styled.button`
-  padding: 8px 20px;
+  padding: 12px 26px;
   border: 2px solid grey;
   border-radius: 30px;
   background-color: transparent;
