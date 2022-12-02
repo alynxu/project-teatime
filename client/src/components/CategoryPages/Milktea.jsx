@@ -4,7 +4,7 @@ import Products from "../../components/ProductCard/Products";
 
 const Milktea = () => (
   <Fragment>
-    <div>
+    <div style = {{fontSize: 16}}>
       <Link to={`/menu`}>Categories</Link> / Milktea
     </div>
     <div>

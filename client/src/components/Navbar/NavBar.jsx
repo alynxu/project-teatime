@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FaMugHot, FaStar, FaHeart } from 'react-icons/fa';
-import { BsBagCheckFill } from 'react-icons/bs';
-import Cart from '../Cart';
-
+import { FaMugHot, FaStar, FaHeart } from "react-icons/fa";
+import { BsBagCheckFill } from "react-icons/bs";
+import Cart from "../Cart";
 
 import {
   Collapse,
@@ -15,7 +14,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Button,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -23,15 +21,11 @@ import {
 } from "reactstrap";
 
 import { useAuth0 } from "@auth0/auth0-react";
+import Button from "../Shared/Button";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    user,
-    isAuthenticated,
-    loginWithRedirect,
-    logout,
-  } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const toggle = () => setIsOpen(!isOpen);
 
   const logoutWithRedirect = () =>
@@ -41,14 +35,18 @@ const NavBar = () => {
 
   return (
     <div className="nav-container">
-      <Navbar color="light" light expand="md">
+      <Navbar style={{ backgroundColor: "#FFFAF5" }} light expand="md">
         <Container>
-          <NavbarBrand style={{
-            paddingTop: '0px'
-          }}><FaMugHot /></NavbarBrand>
+          <NavbarBrand
+            style={{
+              paddingTop: "0px",
+            }}
+          >
+            <FaMugHot />
+          </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
+            <Nav className="mr-auto" navbar style={{ fontSize: "18px", fontWeight: 'bold' }}>
               <NavLink
                 tag={RouterNavLink}
                 to="/"
@@ -75,7 +73,7 @@ const NavBar = () => {
               </NavLink>
             </Nav>
 
-            <NavbarBrand >
+            <NavbarBrand>
               <NavLink
                 tag={RouterNavLink}
                 to="/shoppingcart"
@@ -88,12 +86,7 @@ const NavBar = () => {
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
                 <NavItem>
-                  <Button
-                    id="qsLoginBtn"
-                    color="primary"
-                    className="btn-margin"
-                    onClick={() => loginWithRedirect()}
-                  >
+                  <Button onClick={() => loginWithRedirect()}>
                     Sign in/Join now
                   </Button>
                 </NavItem>
@@ -156,10 +149,13 @@ const NavBar = () => {
                   </DropdownMenu>
                 </UncontrolledDropdown>
               )}
-
             </Nav>
             {!isAuthenticated && (
-              <Nav className="d-md-none" navbar>
+              <Nav
+                className="d-md-none"
+                style={{ backgroundColor: "#FFFAF5" }}
+                navbar
+              >
                 <NavItem>
                   <Button
                     id="qsLoginBtn"
