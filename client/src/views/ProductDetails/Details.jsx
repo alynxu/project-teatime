@@ -115,7 +115,7 @@ const Details = ({ products, addToCart }) => {
                 onClick={() => setIsFavorite((prevValue) => !prevValue)}
               >
                 {!isFavorite && <HeartOutlined />}
-                {isFavorite && <HeartFilled style={{ color: "red" }} />}
+                {isFavorite && <HeartFilled style={{ color: "#FF2E67" }} />}
               </IconButton>
             </AddContainer>
           </InfoContainer>
