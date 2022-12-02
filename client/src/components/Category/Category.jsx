@@ -17,7 +17,7 @@ class Content extends Component {
         <h2 className="my-5 text-center" style={{ color: "#000958" }}>
           Categories
         </h2>
-        <Container style={{ whiteSpace: "nowrap" }}>
+        <Container style={{ whiteSpace: "nowrap"}}>
           <Row>
             <Col>
               <NavLink
@@ -29,6 +29,7 @@ class Content extends Component {
                   style={{
                     maxWidth: "190px",
                     backgroundColor: "#FFF0E1",
+                    border: "none"
                   }}
                 >
                   <CardBody>
@@ -63,6 +64,7 @@ class Content extends Component {
                   style={{
                     maxWidth: "190px",
                     backgroundColor: "#FFF0E1",
+                    border: "none"
                   }}
                 >
                   <CardBody>
@@ -97,6 +99,7 @@ class Content extends Component {
                   style={{
                     maxWidth: "190px",
                     backgroundColor: "#FFF0E1",
+                    border: "none",
                   }}
                 >
                   <CardBody>
@@ -131,6 +134,7 @@ class Content extends Component {
                   style={{
                     maxWidth: "190px",
                     backgroundColor: "#FFF0E1",
+                    border: "none"
                   }}
                 >
                   <CardBody>
