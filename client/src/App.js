@@ -20,6 +20,7 @@ import Tea from "../src/components/CategoryPages/Tea";
 import Smoothies from "../src/components/CategoryPages/Smoothies";
 import ShoppingCart from "../src/views/CartPage/ShoppingCart";
 import Details from "./views/ProductDetails/Details";
+import Search from "./views/SearchPage/Search";
 import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
 
@@ -75,6 +76,7 @@ const App = ({ cart, updateCart }) => {
             <Route path="/categories/smoothies" component={Smoothies} />
             <Route path="/shoppingcart" component={ShoppingCart} />
             <Route path="/products/:id" component={Details} />
+            <Route path="/search/:name" component={Search} />
           </Switch>
         </Container>
         <Footer />
