@@ -94,11 +94,10 @@ const ShoppingCart = ({ cart, emptyCart }) => {
 
   return (
     <Fragment>
-      Your Shopping Cart:
+      <h2>Shopping Cart</h2>
       <div className="shoppingCart">
-        <h1>Shopping Cart</h1>
-
-        <div className="shopping_table">
+  
+        <div className="shopping_table" style = {{fontSize: 18}}>
           <div className="t_heading">
             <div className="t_product">Product</div>
             <div className="t_quantity">Quantity</div>
