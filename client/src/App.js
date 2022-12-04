@@ -30,22 +30,45 @@ import "./App.css";
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
 import { updateCart } from "./redux/Shopping/shopping-actions";
+import axios from "axios";
 initFontAwesome();
 
 const App = ({ cart, updateCart }) => {
+  const { user } = useAuth0();
   const { isLoading, error } = useAuth0();
 
-  //getting cartItems from local storage and updating the cart
+  //getting cartItems from api and updating the cart
   useEffect(() => {
-    const cartItems = localStorage.getItem("cartItems");
-    if (cartItems) {
-      updateCart(JSON.parse(cartItems));
-    }
-  }, []);
+    const fetchCartItems = async () => {
+      if (!user) return;
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/shoppingcart`,
+        {
+          params: {
+            userId: user?.sub.split("|")[1],
+          },
+        }
+      );
+      const cartItems = response.data.response?.cartItems || [];
+      updateCart(cartItems);
+    };
+    fetchCartItems();
+  }, [user]);
 
-  //saving cartItems to local storage everytime the cart changes
+  //update cartItems to the backend everytime the cart changes
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cart));
+    const updateCartItems = async () => {
+      if (!user) return;
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/shoppingcart`,
+        {
+          cartItems: cart,
+          userId: user?.sub.split("|")[1],
+        }
+      );
+      console.log("response", response.data);
+    };
+    updateCartItems();
   }, [cart]);
 
   if (error) {
