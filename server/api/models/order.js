@@ -10,6 +10,34 @@ const ordersSchema = new Schema(
       type: Number,
       trim: true,
     },
+    deliveryFirstName: {
+      type: String,
+      trim: true,
+    },
+    deliveryLastName: {
+      type: String,
+      trim: true,
+    },
+    deliveryPhoneNumber: {
+      type: String,
+      trim: true,
+    },
+    street: {
+      type: String,
+      trim: true,
+    },
+    city: {
+      type: String,
+      trim: true,
+    },
+    state: {
+      type: String,
+      trim: true,
+    },
+    zip: {
+      type: String,
+      trim: true,
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: "users",
