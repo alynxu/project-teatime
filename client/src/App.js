@@ -21,6 +21,7 @@ import Smoothies from "../src/components/CategoryPages/Smoothies";
 import ShoppingCart from "../src/views/CartPage/ShoppingCart";
 import Details from "./views/ProductDetails/Details";
 import Search from "./views/SearchPage/Search";
+import OrderDetail from "./views/OrderDetailPage/OrderDetail";
 import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
 
@@ -91,6 +92,7 @@ const App = ({ cart, updateCart }) => {
             <Route path="/profile" component={Profile} />
             <Route path="/orders" component={Orders} />
             <Route path="/order/completed" component={OrderCompleted} />
+            <Route path="/order/:orderNumber" component={OrderDetail} />
             <Route path="/rewards" component={Rewards} />
             <Route path="/favorites" component={Favorites} />
             <Route path="/categories/coffee" component={Coffee} />

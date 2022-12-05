@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import styled from "styled-components";
 import moment from "moment";
@@ -34,6 +35,7 @@ const Button = styled.button`
 `;
 
 const OrderCard = ({ orderNumber, orderDate, orderTotal, orderItems }) => {
+  const history = useHistory();
   return (
     <Container
       style={{
@@ -70,7 +72,13 @@ const OrderCard = ({ orderNumber, orderDate, orderTotal, orderItems }) => {
             alignItems: "center",
           }}
         >
-          <Button>See the Details</Button>
+          <Button
+            onClick={() => {
+              history.push(`/order/${orderNumber}`);
+            }}
+          >
+            See the Details
+          </Button>
         </Col>
       </Row>
     </Container>

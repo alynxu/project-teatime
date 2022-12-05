@@ -7,4 +7,6 @@ router.post("/", orderController.create);
 
 router.post("/all", orderController.list);
 
+router.get("/:orderId", orderController.getOrderById);
+
 module.exports = router;
