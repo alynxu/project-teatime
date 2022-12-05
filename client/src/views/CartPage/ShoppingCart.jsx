@@ -36,16 +36,7 @@ const ShoppingCart = ({ cart, emptyCart }) => {
       message.info("Please add items to cart");
       return;
     }
-    console.log(userData);
-    console.log({
-      deliveryFirstName: !userData.deliveryFirstName,
-      deliveryLastName: !userData.deliveryLastName,
-      deliveryPhoneNumber: !userData.deliveryPhoneNumber,
-      street: !userData.street,
-      city: !userData.city,
-      state: !userData.state,
-      zip: !userData.zip,
-    });
+
     if (
       !userData.deliveryFirstName ||
       !userData.deliveryLastName ||
@@ -62,6 +53,13 @@ const ShoppingCart = ({ cart, emptyCart }) => {
       userId: user.sub.split("|")[1],
       products: cart,
       order_total: totalPrice,
+      deliveryFirstName: userData.deliveryFirstName,
+      deliveryLastName: userData.deliveryLastName,
+      deliveryPhoneNumber: userData.deliveryPhoneNumber,
+      street: userData.street,
+      city: userData.city,
+      state: userData.state,
+      zip: userData.zip,
     });
     if (res.data.ok) {
       message.success("Order is successfully placed", 1);
