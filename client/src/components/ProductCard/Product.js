@@ -29,6 +29,7 @@ function Product({ product, addToCart }) {
       message.error("Please login to add to cart");
       return;
     }
+    message.success("Item is added to the cart!");
     addToCart(product.id);
   };
 
@@ -50,7 +51,9 @@ function Product({ product, addToCart }) {
             alt={`${product.name}`}
           />
         </NavLink>
-        <h3>{product.name}</h3>
+        <div style={{paddingTop: "5px"}}>
+          <h4>{product.name}</h4>
+        </div>
         <div
           style={{
             display: "flex",
