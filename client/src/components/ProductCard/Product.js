@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { message } from "antd";
@@ -7,22 +7,51 @@ import { BsCartPlus } from "react-icons/bs";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { NavLink } from "reactstrap";
 import { connect } from "react-redux";
-import { addToCart } from "../../redux/Shopping/shopping-actions";
+import {
+  addToCart,
+  addToFavorite,
+  removeFromFavorite,
+} from "../../redux/Shopping/shopping-actions";
+import { HeartFilled } from "@ant-design/icons";
+import Fab from "@mui/material/Fab";
 
 const IconButton = styled.button`
   background: transparent;
   border: 0;
   outline: 0;
   font-size: 1.5rem;
-  color: #FF5B2E;
+  color: #ff5b2e;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-function Product({ product, addToCart }) {
+const FavoriteButton = styled.div`
+  position: absolute;
+  top: 0;
+  right: -16px;
+  padding: 0.5rem;
+  z-index: 10;
+`;
+
+function Product({
+  product,
+  addToCart,
+  favoriteItems,
+  addToFavorite,
+  removeFromFavorite,
+}) {
   const { user } = useAuth0();
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    favoriteItems.forEach((item) => {
+      if (item.id === product.id) {
+        setIsFavorite(true);
+      }
+    });
+  }, [favoriteItems, product.id]);
 
   const addToCartHandler = () => {
     if (!user) {
@@ -33,16 +62,27 @@ function Product({ product, addToCart }) {
     addToCart(product.id);
   };
 
+  const favoriteHandler = () => {
+    if (!user) {
+      message.error("Please login to add favorite product!");
+      return;
+    }
+    if (isFavorite) {
+      setIsFavorite(false);
+      removeFromFavorite(product.id);
+    } else {
+      setIsFavorite(true);
+      addToFavorite(product.id);
+    }
+  };
+
   return (
     <>
-      <Col style={{ margin: "10px" }}>
+      <Col style={{display:"flex", flexDirection: "column", margin: "20px 80px 20px 20px", maxWidth: "200px" }}>
         <NavLink
           tag={RouterNavLink}
           to={`/products/${product.id}`}
           activeClassName="selected"
-          style={{
-            padding: 0,
-          }}
         >
           <img
             width="200px"
@@ -51,9 +91,15 @@ function Product({ product, addToCart }) {
             alt={`${product.name}`}
           />
         </NavLink>
-        <div style={{paddingTop: "5px"}}>
-          <h4>{product.name}</h4>
-        </div>
+        <FavoriteButton onClick={favoriteHandler}>
+          <Fab size="medium">
+            <IconButton>
+              {!isFavorite && <HeartFilled style={{ color: "#9FA0A4" }} />}
+              {isFavorite && <HeartFilled style={{ color: "#FF2E67" }} />}
+            </IconButton>
+          </Fab>
+        </FavoriteButton>
+        <h3>{product.name}</h3>
         <div
           style={{
             display: "flex",
@@ -72,9 +118,18 @@ function Product({ product, addToCart }) {
     </>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    favoriteItems: state.shop.favoriteItems,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (id) => dispatch(addToCart(id)),
+    addToFavorite: (id) => dispatch(addToFavorite(id)),
+    removeFromFavorite: (id) => dispatch(removeFromFavorite(id)),
   };
 };
-export default connect(null, mapDispatchToProps)(Product);
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

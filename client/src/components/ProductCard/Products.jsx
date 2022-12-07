@@ -15,10 +15,12 @@ const Products = ({ products }) => {
     );
 
     return (
-        <Container
+        <Container 
             style={{
                 whiteSpace: "nowrap",
-                padding: "50px",
+                paddingTop: "30px",
+                display: "flex",
+                justifyContent: "center"
             }}
         >
             <Row>
