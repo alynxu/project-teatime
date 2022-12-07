@@ -30,11 +30,14 @@ import "./App.css";
 
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
-import { updateCart } from "./redux/Shopping/shopping-actions";
+import {
+  updateCart,
+  updateFavorite,
+} from "./redux/Shopping/shopping-actions";
 import axios from "axios";
 initFontAwesome();
 
-const App = ({ cart, updateCart }) => {
+const App = ({ cart, updateCart, favoriteItems, updateFavorite }) => {
   const { user } = useAuth0();
   const { isLoading, error } = useAuth0();
 
@@ -71,6 +74,40 @@ const App = ({ cart, updateCart }) => {
     };
     updateCartItems();
   }, [cart]);
+
+  //getting favoriteItems from api and updating the favorites
+  useEffect(() => {
+    const fetchFavoriteItems = async () => {
+      if (!user) return;
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/favorites`,
+        {
+          params: {
+            userId: user?.sub.split("|")[1],
+          },
+        }
+      );
+      const favoriteItems = response.data.response?.items || [];
+      updateFavorite(favoriteItems);
+    };
+    fetchFavoriteItems();
+  }, [user]);
+
+  //saving favoriteItems to database everytime the favorites changes
+  useEffect(() => {
+    const updateFavoriteItems = async () => {
+      if (!user) return;
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/favorites`,
+        {
+          items: favoriteItems,
+          userId: user?.sub.split("|")[1],
+        }
+      );
+      console.log("response", response.data);
+    };
+    updateFavoriteItems();
+  }, [favoriteItems]);
 
   if (error) {
     return <div>Oops... {error.message}</div>;
@@ -113,12 +150,14 @@ const App = ({ cart, updateCart }) => {
 const mapStateToProps = (state) => {
   return {
     cart: state.shop.cart,
+    favoriteItems: state.shop.favoriteItems,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updateCart: (id) => dispatch(updateCart(id)),
+    updateFavorite: (id) => dispatch(updateFavorite(id)),
   };
 };
 

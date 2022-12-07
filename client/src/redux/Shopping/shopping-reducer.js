@@ -8,7 +8,7 @@ const INITIAL_STATE = {
       category: "coffee",
       imageUrl: "https://i.ibb.co/qBnfjHy/icedamericado.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 2,
@@ -16,7 +16,7 @@ const INITIAL_STATE = {
       category: "coffee",
       imageUrl: "https://i.ibb.co/CBBCN0F/coldbrew.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 3,
@@ -24,7 +24,7 @@ const INITIAL_STATE = {
       category: "coffee",
       imageUrl: "https://i.ibb.co/TtXYTHN/icedcoffee.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 4,
@@ -32,7 +32,7 @@ const INITIAL_STATE = {
       category: "coffee",
       imageUrl: "https://i.ibb.co/bb91Zj4/icedespresso.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 5,
@@ -40,7 +40,7 @@ const INITIAL_STATE = {
       category: "milktea",
       imageUrl: "https://i.ibb.co/1mVZ06N/brownsugarmilktea.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 6,
@@ -48,7 +48,7 @@ const INITIAL_STATE = {
       category: "milktea",
       imageUrl: "https://i.ibb.co/d5c9bMC/originalmilktea.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 7,
@@ -56,7 +56,7 @@ const INITIAL_STATE = {
       category: "milktea",
       imageUrl: "https://i.ibb.co/StTpJ6W/taromilktea.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 8,
@@ -64,7 +64,7 @@ const INITIAL_STATE = {
       category: "milktea",
       imageUrl: "https://i.ibb.co/JkVvjM1/matchmilktea.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 9,
@@ -72,7 +72,7 @@ const INITIAL_STATE = {
       category: "tea",
       imageUrl: "https://i.ibb.co/grdgQdM/blacktea.jpg",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 10,
@@ -80,7 +80,7 @@ const INITIAL_STATE = {
       category: "tea",
       imageUrl: "https://i.ibb.co/grdgQdM/blacktea.jpg",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 11,
@@ -88,7 +88,7 @@ const INITIAL_STATE = {
       category: "tea",
       imageUrl: "https://i.ibb.co/grdgQdM/blacktea.jpg",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 12,
@@ -96,7 +96,7 @@ const INITIAL_STATE = {
       category: "tea",
       imageUrl: "https://i.ibb.co/JjxCzKV/fruittea.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 13,
@@ -104,7 +104,7 @@ const INITIAL_STATE = {
       category: "smoothies",
       imageUrl: "https://i.ibb.co/f4DkQ0j/strawberry.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 14,
@@ -112,7 +112,7 @@ const INITIAL_STATE = {
       category: "smoothies",
       imageUrl: "https://i.ibb.co/f4DkQ0j/strawberry.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 15,
@@ -120,7 +120,7 @@ const INITIAL_STATE = {
       category: "smoothies",
       imageUrl: "https://i.ibb.co/f4DkQ0j/strawberry.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
     {
       id: 16,
@@ -128,9 +128,10 @@ const INITIAL_STATE = {
       category: "smoothies",
       imageUrl: "https://i.ibb.co/f4DkQ0j/strawberry.png",
       price: 5.99,
-      description: "Detail of product description will be added later."
+      description: "Detail of product description will be added later.",
     },
   ],
+  favoriteItems: [],
   cart: [],
   currentItem: null,
 };
@@ -185,6 +186,27 @@ const shopReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cart: [],
+      };
+    case actionTypes.ADD_TO_FAVORITE:
+      // get Item data from products array
+      const itemFavorite = state.products.find(
+        (product) => product.id === action.payload.id
+      );
+      return {
+        ...state,
+        favoriteItems: [...state.favoriteItems, itemFavorite],
+      };
+    case actionTypes.REMOVE_FROM_FAVORITE:
+      return {
+        ...state,
+        favoriteItems: state.favoriteItems.filter(
+          (item) => item.id !== action.payload.id
+        ),
+      };
+    case actionTypes.UPDATE_FAVORITE:
+      return {
+        ...state,
+        favoriteItems: action.payload,
       };
     default:
       return state;

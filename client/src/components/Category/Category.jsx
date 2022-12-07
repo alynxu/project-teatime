@@ -19,7 +19,7 @@ class Content extends Component {
         </h2>
         <Container style={{ whiteSpace: "nowrap"}}>
           <Row>
-            <Col>
+            <Col style={{display: "flex", justifyContent: "center", marginBottom: "20px"}}>
               <NavLink
                 tag={RouterNavLink}
                 to="/categories/coffee"
@@ -54,7 +54,7 @@ class Content extends Component {
               </NavLink>
             </Col>
 
-            <Col>
+            <Col style={{display: "flex", justifyContent: "center", marginBottom: "20px"}}>
               <NavLink
                 tag={RouterNavLink}
                 to="/categories/milktea"
@@ -89,7 +89,7 @@ class Content extends Component {
               </NavLink>
             </Col>
 
-            <Col>
+            <Col style={{display: "flex", justifyContent: "center", marginBottom: "20px"}}>
               <NavLink
                 tag={RouterNavLink}
                 to="/categories/tea"
@@ -124,7 +124,7 @@ class Content extends Component {
               </NavLink>
             </Col>
 
-            <Col>
+            <Col style={{display: "flex", justifyContent: "center", marginBottom: "20px"}}>
               <NavLink
                 tag={RouterNavLink}
                 to="/categories/smoothies"
@@ -134,7 +134,7 @@ class Content extends Component {
                   style={{
                     maxWidth: "190px",
                     backgroundColor: "#FFF0E1",
-                    border: "none"
+                    border: "none",
                   }}
                 >
                   <CardBody>

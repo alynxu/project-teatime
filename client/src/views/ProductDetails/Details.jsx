@@ -94,6 +94,7 @@ const Details = ({ products, addToCart }) => {
       message.error("Please login to add to cart");
       return;
     }
+    message.success("Item is added to the cart!");
     addToCart(product.id);
   };
 
