@@ -55,7 +55,7 @@ app.get("/api", (req, res) => {
 app.use("/api/user", user);
 app.use("/api/order", order);
 app.use("/api/shoppingcart", shoppingcart);
-app.use("/api/favourites", favorite);
+app.use("/api/favorites", favorite);
 
 app.get("*", (req, res) => {
   res.sendFile(join(__dirname, "../client", "build", "index.html"));

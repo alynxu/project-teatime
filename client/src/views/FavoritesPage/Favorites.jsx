@@ -13,7 +13,6 @@ const Favorites = ({ favoriteItems }) => {
             whiteSpace: "nowrap",
             padding: "30px",
             display: "flex",
-            justifyContent: "center"
           }}
         >
           <Row>
