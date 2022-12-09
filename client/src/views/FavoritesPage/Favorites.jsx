@@ -6,7 +6,7 @@ import Product from "../../components/ProductCard/Product";
 const Favorites = ({ favoriteItems }) => {
   return (
     <Fragment>
-      <h3>Your Favorites:</h3>
+      <h3 style={{ color: "#000958" }}>Your Favorites:</h3>
       {favoriteItems.length > 0 && (
         <Container
           style={{

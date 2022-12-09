@@ -103,10 +103,10 @@ const OrderDetail = () => {
   }, [orderNumber]);
   return (
     <div>
-      <h1 style={{ color: "#000958" }}>Orders/Order Detail</h1>
+      <h3 style={{ color: "#000958" }}>Order Detail</h3>
       {order && (
         <Card>
-          <h3 style={{ color: "#000958" }}>Order Number# {order._id}</h3>
+          <h4 style={{ color: "#000958" }}>Order Number# {order._id}</h4>
           <Container>
             <ProductsContainer>
               {order.products.map((product) => (
@@ -118,7 +118,7 @@ const OrderDetail = () => {
                       gap: "12px",
                     }}
                   >
-                    <ProductImage src={product.imageUrl} />
+                    <ProductImage alt={product.name} src={product.imageUrl} />
                     <div>
                       <h5 style={{ color: "#000958" }}>{product.name}</h5>
                       <h6>Category: {product.category}</h6>

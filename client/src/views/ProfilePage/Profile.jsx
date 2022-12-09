@@ -101,7 +101,7 @@ export const ProfileComponent = () => {
 
   return (
     <>
-      <h2 style={{ color: "#000958" }}>Profile</h2>
+      <h3 style={{ color: "#000958" }}>Profile</h3>
       {isAuthenticated && (
         <Form
           onSubmit={(e) => {

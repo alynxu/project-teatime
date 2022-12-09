@@ -109,9 +109,9 @@ function Product({
             width: "200px",
           }}
         >
-          <h5 style={{ margin: 0 }}>${product.price}</h5>
+          <h4 style={{ margin: 0 }}>${product.price}</h4>
           <IconButton onClick={addToCartHandler}>
-            <BsCartPlus />
+            <BsCartPlus aria-label='addtocart'/>
           </IconButton>
         </div>
       </Col>

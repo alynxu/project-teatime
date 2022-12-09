@@ -92,7 +92,7 @@ const ShoppingCart = ({ cart, emptyCart }) => {
 
   return (
     <Fragment>
-      <h2>Shopping Cart</h2>
+      <h3 style={{ color: "#000958" }}>Shopping Cart</h3>
       <div className="shoppingCart">
   
         <div className="shopping_table" style = {{fontSize: 18}}>

@@ -34,7 +34,7 @@ class Content extends Component {
                 >
                   <CardBody>
                     <CardTitle
-                      tag="h5"
+                      tag="h3"
                       style={{
                         display: "flex",
                         justifyContent: "center",
@@ -69,7 +69,7 @@ class Content extends Component {
                 >
                   <CardBody>
                     <CardTitle
-                      tag="h5"
+                      tag="h3"
                       style={{
                         display: "flex",
                         justifyContent: "center",
@@ -104,7 +104,7 @@ class Content extends Component {
                 >
                   <CardBody>
                     <CardTitle
-                      tag="h5"
+                      tag="h3"
                       style={{
                         display: "flex",
                         justifyContent: "center",
@@ -139,7 +139,7 @@ class Content extends Component {
                 >
                   <CardBody>
                     <CardTitle
-                      tag="h5"
+                      tag="h3"
                       style={{
                         display: "flex",
                         justifyContent: "center",

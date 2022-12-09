@@ -18,7 +18,7 @@ const Cart = ({ cart }) => {
 
   return (
     <Badge badgeContent={cartCount} color="error">
-      <ShoppingCartOutlinedIcon />
+      <ShoppingCartOutlinedIcon aria-label='cart'/>
     </Badge>
   );
 }

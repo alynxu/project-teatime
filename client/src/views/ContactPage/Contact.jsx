@@ -83,7 +83,7 @@ const Contact = () => {
           <div>
             <IconText>
               <BsTelephoneFill />
-              <h5>Phone</h5>
+              <span style ={{fontWeight: 'bold'}}>Phone</span>
             </IconText>
             <Para>+604 789 303</Para>
             <Para>+604 987 654</Para>
@@ -91,14 +91,14 @@ const Contact = () => {
           <div>
             <IconText>
               <HiMailOpen />
-              <h5>Email</h5>
+              <span style ={{fontWeight: 'bold'}}>Email</span>
             </IconText>
             <Para>example@gmail.com</Para>
           </div>
           <div>
             <IconText>
               <HiLocationMarker />
-              <h5>Address</h5>
+              <span style ={{fontWeight: 'bold'}}>Address</span>
             </IconText>
             <Para>4700 Kingsway, Burnaby,</Para>
             <Para>V5H 4M5, BC</Para>
@@ -106,7 +106,7 @@ const Contact = () => {
           <div>
             <IconText>
               <BsFillShareFill />
-              <h5>Social</h5>
+              <span style ={{fontWeight: 'bold'}}>Social</span>
             </IconText>
             <IconCtn>
               <BsInstagram />

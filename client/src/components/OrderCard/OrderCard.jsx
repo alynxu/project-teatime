@@ -48,10 +48,10 @@ const OrderCard = ({ orderNumber, orderDate, orderTotal, orderItems }) => {
     >
       <h3 style={{ color: "#010952" }}>Order Number: {orderNumber}</h3>
       <div style={{ margin: "16px 0" }}>
-        <h5 style={{ color: "#010952" }}>
+        <h4 style={{ color: "#010952" }}>
           Order Date: {moment(orderDate).format("LL")}
-        </h5>
-        <h5 style={{ color: "#010952" }}>Order Total: ${orderTotal}</h5>
+        </h4>
+        <h4 style={{ color: "#010952" }}>Order Total: ${orderTotal}</h4>
       </div>
       <Row md={2} style={{ padding: "16px 0" }}>
         <Col>
