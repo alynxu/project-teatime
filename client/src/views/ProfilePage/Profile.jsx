@@ -234,7 +234,7 @@ export const ProfileComponent = () => {
               />
             </Col>
           </Row>
-          <div style={{ margin: "30px 0" }}>
+          <div style={{ margin: "30px 0", textAlign: "center", fontSize: "16px" }}>
             <Button type="submit">Update the Profile</Button>
           </div>
         </Form>
