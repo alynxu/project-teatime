@@ -7,7 +7,11 @@ import "antd/dist/antd.css";
 import styled from "styled-components";
 import { mobile } from "../../responsive";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { addToCart } from "../../redux/Shopping/shopping-actions";
+import {
+  addToCart,
+  addToFavorite,
+  removeFromFavorite,
+} from "../../redux/Shopping/shopping-actions";
 import Button from "../../components/Shared/Button";
 
 const Container = styled.div``;
@@ -74,7 +78,13 @@ const IconButton = styled.button`
   font-size: 20px;
 `;
 
-const Details = ({ products, addToCart }) => {
+const Details = ({
+  products,
+  addToCart,
+  favoriteItems,
+  addToFavorite,
+  removeFromFavorite,
+}) => {
   const { user } = useAuth0();
 
   const { id } = useParams();
@@ -87,7 +97,12 @@ const Details = ({ products, addToCart }) => {
       (product) => product.id === parseInt(id)
     );
     setProduct(desiredProduct);
-  }, [id, products]);
+    favoriteItems.forEach((item) => {
+      if (item.id === desiredProduct.id) {
+        setIsFavorite(true);
+      }
+    });
+  }, [id, products, favoriteItems]);
 
   const addToCartHandler = () => {
     if (!user) {
@@ -96,6 +111,20 @@ const Details = ({ products, addToCart }) => {
     }
     message.success("Item is added to the cart!");
     addToCart(product.id);
+  };
+
+  const favoriteHandler = () => {
+    if (!user) {
+      message.error("Please login to add favorite product!");
+      return;
+    }
+    if (isFavorite) {
+      setIsFavorite(false);
+      removeFromFavorite(product.id);
+    } else {
+      setIsFavorite(true);
+      addToFavorite(product.id);
+    }
   };
 
   return (
@@ -112,9 +141,7 @@ const Details = ({ products, addToCart }) => {
 
             <AddContainer>
               <Button onClick={addToCartHandler}>Add to Cart</Button>
-              <IconButton
-                onClick={() => setIsFavorite((prevValue) => !prevValue)}
-              >
+              <IconButton onClick={favoriteHandler}>
                 {!isFavorite && <HeartOutlined />}
                 {isFavorite && <HeartFilled style={{ color: "#FF2E67" }} />}
               </IconButton>
@@ -130,12 +157,15 @@ const Details = ({ products, addToCart }) => {
 const mapStateToProps = (state) => {
   return {
     products: state.shop.products,
+    favoriteItems: state.shop.favoriteItems,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (id) => dispatch(addToCart(id)),
+    addToFavorite: (id) => dispatch(addToFavorite(id)),
+    removeFromFavorite: (id) => dispatch(removeFromFavorite(id)),
   };
 };
 

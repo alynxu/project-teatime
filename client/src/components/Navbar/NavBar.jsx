@@ -3,6 +3,7 @@ import { NavLink as RouterNavLink, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FaMugHot, FaHeart, FaUserAlt } from "react-icons/fa";
 import { BsBagCheckFill } from "react-icons/bs";
+import { message } from "antd";
 import Cart from "../Cart";
 
 import {
@@ -86,15 +87,24 @@ const NavBar = () => {
             </Nav>
 
             <NavbarBrand>
-              <NavLink
-                tag={RouterNavLink}
-                to="/shoppingcart"
-                activeClassName={
-                  location.pathname === "/shoppingcart" ? "active-icon" : ""
-                }
-              >
-                <Cart />
-              </NavLink>
+              {user && (
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/shoppingcart"
+                  activeClassName={
+                    location.pathname === "/shoppingcart" ? "active-icon" : ""
+                  }
+                >
+                  <Cart />
+                </NavLink>
+              )}
+              {!user && (
+                <div
+                  onClick={() => message.error("Please log in to view your shopping cart")}
+                >
+                  <Cart />
+                </div>
+              )}
             </NavbarBrand>
 
             <Nav className="d-none d-md-block" navbar>
