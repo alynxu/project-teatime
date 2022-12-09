@@ -20,7 +20,7 @@ const ShoppingCart = ({ cart, emptyCart }) => {
   const history = useHistory();
   const subtotal = cart.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2);
 
-  const shipping = 2;
+  const shipping = 3;
 
   const num = subtotal * 0.05;
   const tax = num.toFixed(2);

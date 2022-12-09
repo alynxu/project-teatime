@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { NavLink as RouterNavLink } from "react-router-dom";
+import { NavLink as RouterNavLink, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FaMugHot, FaStar, FaHeart } from "react-icons/fa";
+import { FaMugHot, FaHeart, FaUserAlt } from "react-icons/fa";
 import { BsBagCheckFill } from "react-icons/bs";
 import Cart from "../Cart";
 
@@ -22,8 +22,10 @@ import {
 
 import { useAuth0 } from "@auth0/auth0-react";
 import Button from "../Shared/Button";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const toggle = () => setIsOpen(!isOpen);
@@ -46,38 +48,50 @@ const NavBar = () => {
           </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar style={{ fontSize: "18px", fontWeight: 'bold' }}>
-              <NavLink
-                tag={RouterNavLink}
-                to="/"
-                exact
-                activeClassName="router-link-exact-active"
-              >
-                Home
-              </NavLink>
-              <NavLink
-                tag={RouterNavLink}
-                to="/menu"
-                exact
-                activeClassName="router-link-exact-active"
-              >
-                Menu
-              </NavLink>
-              <NavLink
-                tag={RouterNavLink}
-                to="/contact"
-                exact
-                activeClassName="router-link-exact-active"
-              >
-                Contact
-              </NavLink>
+            <Nav
+              className="mr-auto"
+              navbar
+              style={{ fontSize: "18px", fontWeight: "bold" }}
+            >
+              <li>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/menu"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Menu
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/contact"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Contact
+                </NavLink>
+              </li>
             </Nav>
 
             <NavbarBrand>
               <NavLink
                 tag={RouterNavLink}
                 to="/shoppingcart"
-                activeClassName="selected"
+                activeClassName={
+                  location.pathname === "/shoppingcart" ? "active-icon" : ""
+                }
               >
                 <Cart />
               </NavLink>
@@ -109,7 +123,7 @@ const NavBar = () => {
                       className="dropdown-profile"
                       activeClassName="router-link-exact-active"
                     >
-                      <FontAwesomeIcon icon="user" className="mr-3" /> Profile
+                      <FaUserAlt className="mr-3" />  Profile
                     </DropdownItem>
 
                     <DropdownItem
@@ -119,15 +133,6 @@ const NavBar = () => {
                       activeClassName="router-link-exact-active"
                     >
                       <BsBagCheckFill className="mr-3" /> Orders
-                    </DropdownItem>
-
-                    <DropdownItem
-                      tag={RouterNavLink}
-                      to="/rewards"
-                      className="dropdown-profile"
-                      activeClassName="router-link-exact-active"
-                    >
-                      <FaStar className="mr-3" /> Rewards
                     </DropdownItem>
 
                     <DropdownItem
@@ -186,12 +191,31 @@ const NavBar = () => {
                   </span>
                 </NavItem>
                 <NavItem>
-                  <FontAwesomeIcon icon="user" className="mr-3" />
+                <FaUserAlt className="mr-3" />
                   <RouterNavLink
                     to="/profile"
                     activeClassName="router-link-exact-active"
                   >
                     Profile
+                  </RouterNavLink>
+                </NavItem>
+                <NavItem>
+                  {/* <FontAwesomeIcon icon="user" className="mr-3" /> */}
+                  <BsBagCheckFill className="mr-3" />
+                  <RouterNavLink
+                    to="/orders"
+                    activeClassName="router-link-exact-active"
+                  >
+                    Orders
+                  </RouterNavLink>
+                </NavItem>
+                <NavItem>
+                  <FontAwesomeIcon icon={faHeart} className="mr-3" />
+                  <RouterNavLink
+                    to="/favorites"
+                    activeClassName="router-link-exact-active"
+                  >
+                    Favorites
                   </RouterNavLink>
                 </NavItem>
                 <NavItem>
