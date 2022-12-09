@@ -46,3 +46,19 @@
   justify-content: center;
   align-items: center;
 }
+
+.router-link-exact-active {
+  border-bottom: 3px solid #FF5B2E !important;
+}
+
+.nav-link{
+  color: #000958 !important;
+}
+
+.nav-link:hover{
+  color: #FF5B2E !important;
+}
+
+.active-icon svg {
+  color: #FF5B2E !important;
+}
