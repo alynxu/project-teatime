@@ -103,7 +103,7 @@ const Details = ({ products, addToCart }) => {
       {product && (
         <Wrapper>
           <ImgContainer>
-            <Image src={product?.imageUrl} />
+            <Image src={product?.imageUrl} alt={product?.name} />
           </ImgContainer>
           <InfoContainer>
             <Title>{product?.name}</Title>
