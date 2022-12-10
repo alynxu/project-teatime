@@ -47,6 +47,7 @@ const ShoppingCart = ({ cart, emptyCart }) => {
       !userData.zip
     ) {
       message.error("Please fill out delivery address to continue checkout");
+      history.push("/profile");
       return;
     }
     const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/order`, {
