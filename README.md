@@ -1,4 +1,43 @@
-# CS 5610 Project Proposal - Teatime
+# CS 5610 Project - Teatime
+
+## Progress in iteration3 updated by Fri Dec 9th:
+1. Deployed successfully, website URL: https://teatime.onrender.com
+
+<img width="1265" alt="render" src="https://user-images.githubusercontent.com/113411833/206819493-69f2871c-1d0b-4995-a1a4-478c5766514b.png">
+<img width="1465" alt="teatime" src="https://user-images.githubusercontent.com/113411833/206819495-53a89225-9f9f-4b08-ab8d-0d5123282886.png">
+
+- GitHub Repo Link: https://github.com/alynxu/project-teatime
+(branch: i3-deploy, used for deployment)
+
+2. Added search feature on homepage and the search results page.
+- Implemented fuzzy search feature to allow user to search the product name they want in the homepage.
+- Added seperate search results page, the search reasults will show the mapped product card
+
+3. Modified Profile page
+- Modified both frontend & backend to add more information field of the user
+- Split user info into two parts, one is Basic information and the order is Delivery information
+
+4. Added a new collection "shoppingcart", worked on both frontend & backend
+- Allow user to add/edit/delete items in the cart page. The user can add product to the cart or remove the product out from the cart.
+- All the cart-Item data that refer to the product info will be saved into backend's database based on the specific user. CRUD of Main functionality achiebed.
+- Added user identity verification: the user must log in to view the items in the shopping cart.
+ 
+5. Added a new collection "favorite", worked on both frontend & backend
+- Added hearIcon on each product card that allow user to click it to add that product into thier favorite collection. 
+- Reclick the heartIcon will remove that product from the favorite collection.
+- Added user identity verification: the user must log in to add product into their favorite collection.
+
+6. Added Order Detail page
+- In Orders page, the user's orders will be mapped as order card of a brief of that order, when the clicks the "order details", it will go to the Order Detail page
+- Order Detail page will contain all the product information of that order(product name, image, quantity, price) and the delivery information of the user
+
+7. Modified Contact page
+- Formatted Contact page with more specific infomration
+- Inserted Google Map to show the location of the store
+
+# Below this line is previous stage 
+----------------------------------------------------------------------------------------
+
 Forked from previous team repo. Xiyou(Alyn) Xu will continue this project individually since iteration 1. (by Mon Nov 28th) 
 - Currently it is for iteration 2, frontend and backend are successfully connected. The routes and api for User part is done. Once the user sign up, the user data will be saved into database. Then the user will be able to update their profile at the Profile page of the website. (first CRUD achieved)
 
