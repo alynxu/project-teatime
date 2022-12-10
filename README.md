@@ -16,24 +16,39 @@
 3. Modified Profile page
 - Modified both frontend & backend to add more information field of the user
 - Split user info into two parts, one is Basic information and the order is Delivery information
+<img width="1396" alt="profile" src="https://user-images.githubusercontent.com/113411833/206821451-6ce735da-a9ff-4ae4-b610-14b6acb94102.png">
 
 4. Added a new collection "shoppingcart", worked on both frontend & backend
 - Allow user to add/edit/delete items in the cart page. The user can add product to the cart or remove the product out from the cart.
 - All the cart-Item data that refer to the product info will be saved into backend's database based on the specific user. CRUD of Main functionality achiebed.
 - Added user identity verification: the user must log in to view the items in the shopping cart.
+
  
 5. Added a new collection "favorite", worked on both frontend & backend
-- Added hearIcon on each product card that allow user to click it to add that product into thier favorite collection. 
-- Reclick the heartIcon will remove that product from the favorite collection.
+- Added hearIcon on each product card(also in product deatil page) that allow user to click it to add that product into thier favorite collection. User's action about favorite product will reflect in both product card & product detail page.
+- Once the heartIcon turns into deep-pink, it means this product is favorited. Reclick the heartIcon will remove that product from the favorite collection.
+- The user can view his/her own favorite collection by click the "Favorites" tab under user's avatar at the top right corner.
 - Added user identity verification: the user must log in to add product into their favorite collection.
+<img width="1067" alt="favo1" src="https://user-images.githubusercontent.com/113411833/206821494-3a5c37d5-efbe-4967-875a-e9d631482778.png">
+<img width="1345" alt="favo2" src="https://user-images.githubusercontent.com/113411833/206821500-07b61c60-5bfa-4fc8-94d0-bc1e2ae5c69e.png">
+<img width="973" alt="favo3" src="https://user-images.githubusercontent.com/113411833/206821504-389b452e-056f-44f4-a368-3c85e849977a.png">
 
 6. Added Order Detail page
 - In Orders page, the user's orders will be mapped as order card of a brief of that order, when the clicks the "order details", it will go to the Order Detail page
 - Order Detail page will contain all the product information of that order(product name, image, quantity, price) and the delivery information of the user
+- Added user identity verification: the user must fulfill his/her delivery information before the user can go to checkout.
+<img width="1002" alt="order" src="https://user-images.githubusercontent.com/113411833/206821802-9dbcf422-0cf7-4714-92f6-51e5fbf07028.png">
+<img width="963" alt="orderdetail" src="https://user-images.githubusercontent.com/113411833/206821806-1977a36d-9b96-48f2-a441-9ecb00b995c2.png">
+
 
 7. Modified Contact page
 - Formatted Contact page with more specific infomration
 - Inserted Google Map to show the location of the store
+
+8. Adjusted styling for all pages
+- Updated favicon
+- Adjusted button/layout/color/fontsize to match the UI sketch
+- Adjusted contrast color ratio/icon accessible name/Heading elements with sequentially-descending order to increase accessibility score
 
 # Below this line is previous stage 
 ----------------------------------------------------------------------------------------
