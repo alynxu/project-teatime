@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { NavLink as RouterNavLink } from "react-router-dom";
+import { NavLink as RouterNavLink, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FaMugHot, FaStar, FaHeart } from 'react-icons/fa';
-import { BsBagCheckFill } from 'react-icons/bs';
-import Cart from '../Cart';
-
+import { FaMugHot, FaHeart, FaUserAlt } from "react-icons/fa";
+import { BsBagCheckFill } from "react-icons/bs";
+import { message } from "antd";
+import Cart from "../Cart";
 
 import {
   Collapse,
@@ -15,7 +15,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Button,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -23,15 +22,13 @@ import {
 } from "reactstrap";
 
 import { useAuth0 } from "@auth0/auth0-react";
+import Button from "../Shared/Button";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    user,
-    isAuthenticated,
-    loginWithRedirect,
-    logout,
-  } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const toggle = () => setIsOpen(!isOpen);
 
   const logoutWithRedirect = () =>
@@ -41,59 +38,79 @@ const NavBar = () => {
 
   return (
     <div className="nav-container">
-      <Navbar color="light" light expand="md">
+      <Navbar style={{ backgroundColor: "#FFFAF5" }} light expand="md">
         <Container>
-          <NavbarBrand style={{
-            paddingTop: '0px'
-          }}><FaMugHot /></NavbarBrand>
+          <NavbarBrand
+            style={{
+              paddingTop: "0px",
+            }}
+          >
+            <FaMugHot />
+          </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
-              <NavLink
-                tag={RouterNavLink}
-                to="/"
-                exact
-                activeClassName="router-link-exact-active"
-              >
-                Home
-              </NavLink>
-              <NavLink
-                tag={RouterNavLink}
-                to="/menu"
-                exact
-                activeClassName="router-link-exact-active"
-              >
-                Menu
-              </NavLink>
-              <NavLink
-                tag={RouterNavLink}
-                to="/contact"
-                exact
-                activeClassName="router-link-exact-active"
-              >
-                Contact
-              </NavLink>
+            <Nav
+              className="mr-auto"
+              navbar
+              style={{ fontSize: "18px", fontWeight: "bold" }}
+            >
+              <li>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/menu"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Menu
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/contact"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Contact
+                </NavLink>
+              </li>
             </Nav>
 
-            <NavbarBrand >
-              <NavLink
-                tag={RouterNavLink}
-                to="/shoppingcart"
-                activeClassName="selected"
-              >
-                <Cart />
-              </NavLink>
+            <NavbarBrand>
+              {user && (
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/shoppingcart"
+                  activeClassName={
+                    location.pathname === "/shoppingcart" ? "active-icon" : ""
+                  }
+                >
+                  <Cart />
+                </NavLink>
+              )}
+              {!user && (
+                <div
+                  onClick={() => message.error("Please log in to view your shopping cart")}
+                >
+                  <Cart />
+                </div>
+              )}
             </NavbarBrand>
 
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
                 <NavItem>
-                  <Button
-                    id="qsLoginBtn"
-                    color="primary"
-                    className="btn-margin"
-                    onClick={() => loginWithRedirect()}
-                  >
+                  <Button onClick={() => loginWithRedirect()}>
                     Sign in/Join now
                   </Button>
                 </NavItem>
@@ -116,7 +133,7 @@ const NavBar = () => {
                       className="dropdown-profile"
                       activeClassName="router-link-exact-active"
                     >
-                      <FontAwesomeIcon icon="user" className="mr-3" /> Profile
+                      <FaUserAlt className="mr-3" />  Profile
                     </DropdownItem>
 
                     <DropdownItem
@@ -126,15 +143,6 @@ const NavBar = () => {
                       activeClassName="router-link-exact-active"
                     >
                       <BsBagCheckFill className="mr-3" /> Orders
-                    </DropdownItem>
-
-                    <DropdownItem
-                      tag={RouterNavLink}
-                      to="/rewards"
-                      className="dropdown-profile"
-                      activeClassName="router-link-exact-active"
-                    >
-                      <FaStar className="mr-3" /> Rewards
                     </DropdownItem>
 
                     <DropdownItem
@@ -156,10 +164,13 @@ const NavBar = () => {
                   </DropdownMenu>
                 </UncontrolledDropdown>
               )}
-
             </Nav>
             {!isAuthenticated && (
-              <Nav className="d-md-none" navbar>
+              <Nav
+                className="d-md-none"
+                style={{ backgroundColor: "#FFFAF5" }}
+                navbar
+              >
                 <NavItem>
                   <Button
                     id="qsLoginBtn"
@@ -190,12 +201,31 @@ const NavBar = () => {
                   </span>
                 </NavItem>
                 <NavItem>
-                  <FontAwesomeIcon icon="user" className="mr-3" />
+                <FaUserAlt className="mr-3" />
                   <RouterNavLink
                     to="/profile"
                     activeClassName="router-link-exact-active"
                   >
                     Profile
+                  </RouterNavLink>
+                </NavItem>
+                <NavItem>
+                  {/* <FontAwesomeIcon icon="user" className="mr-3" /> */}
+                  <BsBagCheckFill className="mr-3" />
+                  <RouterNavLink
+                    to="/orders"
+                    activeClassName="router-link-exact-active"
+                  >
+                    Orders
+                  </RouterNavLink>
+                </NavItem>
+                <NavItem>
+                  <FontAwesomeIcon icon={faHeart} className="mr-3" />
+                  <RouterNavLink
+                    to="/favorites"
+                    activeClassName="router-link-exact-active"
+                  >
+                    Favorites
                   </RouterNavLink>
                 </NavItem>
                 <NavItem>

@@ -56,15 +56,10 @@ const OrderCompleted = () => {
     <Container>
       <div>
         <h1 style={{ color: "#010948" }}>Thank You for Shopping with Us!</h1>
-        <p style={{ margin: "20px 0" }}>
-          We have successfully recieved your order.You will receive a
-          confirmation email shortly. As soon as your order has been shipped,
-          you will receive another email with the tracking information and
-          delivery date. We have successfully recieved your order.You will
-          receive a confirmation email shortly. As soon as your order has been
-          shipped, you will receive another email with the tracking information
-          and delivery details.
-        </p>
+        <h2 style={{ color: "#010948", margin: "20px 0" }}>
+          We have successfully recieved your order. You will receive a
+          confirmation email shortly.
+        </h2>
         <BtnContainer>
           <ButtonOutlined onClick={() => history.push("/menu")}>
             <MdOutlineArrowBackIosNew size={12} />

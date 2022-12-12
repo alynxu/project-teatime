@@ -1,7 +1,7 @@
 import React from 'react'
 
 import "../CartPage/ShoppingCart.scss";
-import { MdDoNotDisturbOn, MdAddCircle, MdOutlineClose } from "react-icons/md";
+import { MdDoNotDisturbOn, MdAddCircle, MdOutlineCancel} from "react-icons/md";
 import { connect } from "react-redux";
 import {
   adjustItemQty,
@@ -37,20 +37,20 @@ function ShoppingTable({ item, adjustQty, removeFromCart }) {
             />
           </div>
 
-          <h4>{item.name}</h4>
+          <span>{item.name}</span>
         </div>
         <div className="ti_quantity">
           <div className="cursor" onClick={() => decreaseQty(item.id, item.qty)}>
-            <MdDoNotDisturbOn size={26} color={"E76A49"} />
+            <MdDoNotDisturbOn size={26} color={"#FF5B2E"} />
           </div>
           <div>{item.qty}</div>
           <div className="cursor" onClick={() => increaseQty(item.id, item.qty)}>
-            <MdAddCircle size={26} color={"E76A49"} />
+            <MdAddCircle size={26} color={"#FF5B2E"} />
           </div>
         </div>
         <div className="ti_price">{item.price}</div>
         <div className="cursor" onClick={() => removeFromCart(item.id)}>
-          <MdOutlineClose size={24} color={"E76A49"} />
+          <MdOutlineCancel size={26} color={"red"} />
         </div>
       </div>
     </>

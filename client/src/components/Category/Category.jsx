@@ -1,15 +1,25 @@
 import React, { Component } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
-import { Container, Card, CardBody, CardTitle, Row, Col, NavLink } from "reactstrap";
+import {
+  Container,
+  Card,
+  CardBody,
+  CardTitle,
+  Row,
+  Col,
+  NavLink,
+} from "reactstrap";
 
 class Content extends Component {
   render() {
     return (
       <div className="next-steps my-5">
-        <h2 className="my-5 text-center">Categories</h2>
-        <Container style={{ whiteSpace: "nowrap" }}>
-          <Row >
-            <Col>
+        <h2 className="my-5 text-center" style={{ color: "#000958" }}>
+          Categories
+        </h2>
+        <Container style={{ whiteSpace: "nowrap"}}>
+          <Row>
+            <Col style={{display: "flex", justifyContent: "center", marginBottom: "20px"}}>
               <NavLink
                 tag={RouterNavLink}
                 to="/categories/coffee"
@@ -18,14 +28,17 @@ class Content extends Component {
                 <Card
                   style={{
                     maxWidth: "190px",
+                    backgroundColor: "#FFF0E1",
+                    border: "none"
                   }}
                 >
                   <CardBody>
                     <CardTitle
-                      tag="h5"
+                      tag="h3"
                       style={{
                         display: "flex",
                         justifyContent: "center",
+                        color: "#000958",
                       }}
                     >
                       Coffee
@@ -41,7 +54,7 @@ class Content extends Component {
               </NavLink>
             </Col>
 
-            <Col>
+            <Col style={{display: "flex", justifyContent: "center", marginBottom: "20px"}}>
               <NavLink
                 tag={RouterNavLink}
                 to="/categories/milktea"
@@ -50,14 +63,17 @@ class Content extends Component {
                 <Card
                   style={{
                     maxWidth: "190px",
+                    backgroundColor: "#FFF0E1",
+                    border: "none"
                   }}
                 >
                   <CardBody>
                     <CardTitle
-                      tag="h5"
+                      tag="h3"
                       style={{
                         display: "flex",
                         justifyContent: "center",
+                        color: "#000958",
                       }}
                     >
                       Milktea
@@ -73,7 +89,7 @@ class Content extends Component {
               </NavLink>
             </Col>
 
-            <Col>
+            <Col style={{display: "flex", justifyContent: "center", marginBottom: "20px"}}>
               <NavLink
                 tag={RouterNavLink}
                 to="/categories/tea"
@@ -82,14 +98,17 @@ class Content extends Component {
                 <Card
                   style={{
                     maxWidth: "190px",
+                    backgroundColor: "#FFF0E1",
+                    border: "none",
                   }}
                 >
                   <CardBody>
                     <CardTitle
-                      tag="h5"
+                      tag="h3"
                       style={{
                         display: "flex",
                         justifyContent: "center",
+                        color: "#000958",
                       }}
                     >
                       Tea
@@ -105,7 +124,7 @@ class Content extends Component {
               </NavLink>
             </Col>
 
-            <Col>
+            <Col style={{display: "flex", justifyContent: "center", marginBottom: "20px"}}>
               <NavLink
                 tag={RouterNavLink}
                 to="/categories/smoothies"
@@ -113,15 +132,18 @@ class Content extends Component {
               >
                 <Card
                   style={{
-                    maxWidth: "190px"
+                    maxWidth: "190px",
+                    backgroundColor: "#FFF0E1",
+                    border: "none",
                   }}
                 >
                   <CardBody>
                     <CardTitle
-                      tag="h5"
+                      tag="h3"
                       style={{
                         display: "flex",
                         justifyContent: "center",
+                        color: "#000958",
                       }}
                     >
                       Smoothies

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { message } from "antd";
 import "../CartPage/ShoppingCart.scss";
@@ -10,16 +10,22 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import ShoppingTable from "./ShoppingTable";
 import { emptyCart } from "../../redux/Shopping/shopping-actions";
+import { useEffect } from "react";
+
+const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/user/`;
 
 const ShoppingCart = ({ cart, emptyCart }) => {
+  const [userData, setUserData] = useState();
   const { user } = useAuth0();
   const history = useHistory();
-  const subtotal = cart.reduce((acc, item) => acc + item.qty * item.price, 0);
+  const subtotal = cart.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2);
 
-  const shipping = 2;
+  const shipping = 3;
+
   const num = subtotal * 0.05;
   const tax = num.toFixed(2);
-  const totalPrice = subtotal + shipping;
+  const sum = Number(subtotal) + Number(tax) + Number(shipping)
+  const totalPrice = sum.toFixed(2);
 
   const checkoutHandler = async () => {
     if (!user) {
@@ -30,10 +36,31 @@ const ShoppingCart = ({ cart, emptyCart }) => {
       message.info("Please add items to cart");
       return;
     }
+
+    if (
+      !userData.deliveryFirstName ||
+      !userData.deliveryLastName ||
+      !userData.deliveryPhoneNumber ||
+      !userData.street ||
+      !userData.city ||
+      !userData.state ||
+      !userData.zip
+    ) {
+      message.error("Please fill out delivery address to continue checkout");
+      history.push("/profile");
+      return;
+    }
     const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/order`, {
       userId: user.sub.split("|")[1],
       products: cart,
       order_total: totalPrice,
+      deliveryFirstName: userData.deliveryFirstName,
+      deliveryLastName: userData.deliveryLastName,
+      deliveryPhoneNumber: userData.deliveryPhoneNumber,
+      street: userData.street,
+      city: userData.city,
+      state: userData.state,
+      zip: userData.zip,
     });
     if (res.data.ok) {
       message.success("Order is successfully placed", 1);
@@ -43,13 +70,33 @@ const ShoppingCart = ({ cart, emptyCart }) => {
       message.error("Something went wrong, please try again", 1);
     }
   };
+
+  function getUserData() {
+    console.log("function call, getUserData()");
+    var requestOptions = {
+      method: "GET",
+    };
+
+    fetch(baseUrl + "get-by-email?email=" + user.email, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        result = JSON.parse(result);
+        console.log("result", result);
+        setUserData(result);
+      })
+      .catch((error) => console.log("error", error));
+  }
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <Fragment>
-      Your Shopping Cart:
+      <h3 style={{ color: "#000958" }}>Shopping Cart</h3>
       <div className="shoppingCart">
-        <h1>Shopping Cart</h1>
-
-        <div className="shopping_table">
+  
+        <div className="shopping_table" style = {{fontSize: 18}}>
           <div className="t_heading">
             <div className="t_product">Product</div>
             <div className="t_quantity">Quantity</div>

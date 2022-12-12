@@ -23,7 +23,7 @@ const Orders = () => {
 
   return (
     <Fragment>
-      <h1 style={{ color: "#010952" }}>Orders</h1>
+      <h2 style={{ color: "#010952" }}>Orders</h2>
       {orders.length > 0 &&
         orders.map((order) => (
           <OrderCard

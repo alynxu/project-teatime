@@ -7,6 +7,8 @@ const mongoose = require("./config/dbconnect");
 
 const user = require("./routes/user");
 const order = require("./routes/order");
+const shoppingcart = require("./routes/shoppingcart");
+const favorite = require("./routes/favorite");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -52,6 +54,12 @@ app.get("/api", (req, res) => {
 
 app.use("/api/user", user);
 app.use("/api/order", order);
+app.use("/api/shoppingcart", shoppingcart);
+app.use("/api/favorites", favorite);
+
+app.get("*", (req, res) => {
+  res.sendFile(join(__dirname, "../client", "build", "index.html"));
+});
 
 app.get("*", (req, res) => {
   res.sendFile(join(__dirname, "../client", "build", "index.html"));

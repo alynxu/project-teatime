@@ -20,6 +20,8 @@ import Tea from "../src/components/CategoryPages/Tea";
 import Smoothies from "../src/components/CategoryPages/Smoothies";
 import ShoppingCart from "../src/views/CartPage/ShoppingCart";
 import Details from "./views/ProductDetails/Details";
+import Search from "./views/SearchPage/Search";
+import OrderDetail from "./views/OrderDetailPage/OrderDetail";
 import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
 
@@ -28,24 +30,84 @@ import "./App.css";
 
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
-import { updateCart } from "./redux/Shopping/shopping-actions";
+import {
+  updateCart,
+  updateFavorite,
+} from "./redux/Shopping/shopping-actions";
+import axios from "axios";
 initFontAwesome();
 
-const App = ({ cart, updateCart }) => {
+const App = ({ cart, updateCart, favoriteItems, updateFavorite }) => {
+  const { user } = useAuth0();
   const { isLoading, error } = useAuth0();
 
-  //getting cartItems from local storage and updating the cart
+  //getting cartItems from api and updating the cart
   useEffect(() => {
-    const cartItems = localStorage.getItem("cartItems");
-    if (cartItems) {
-      updateCart(JSON.parse(cartItems));
-    }
-  }, []);
+    const fetchCartItems = async () => {
+      if (!user) return;
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/shoppingcart`,
+        {
+          params: {
+            userId: user?.sub.split("|")[1],
+          },
+        }
+      );
+      const cartItems = response.data.response?.cartItems || [];
+      updateCart(cartItems);
+    };
+    fetchCartItems();
+  }, [user]);
 
-  //saving cartItems to local storage everytime the cart changes
+  //update cartItems to the backend everytime the cart changes
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cart));
+    const updateCartItems = async () => {
+      if (!user) return;
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/shoppingcart`,
+        {
+          cartItems: cart,
+          userId: user?.sub.split("|")[1],
+        }
+      );
+      console.log("response", response.data);
+    };
+    updateCartItems();
   }, [cart]);
+
+  //getting favoriteItems from api and updating the favorites
+  useEffect(() => {
+    const fetchFavoriteItems = async () => {
+      if (!user) return;
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/favorites`,
+        {
+          params: {
+            userId: user?.sub.split("|")[1],
+          },
+        }
+      );
+      const favoriteItems = response.data.response?.items || [];
+      updateFavorite(favoriteItems);
+    };
+    fetchFavoriteItems();
+  }, [user]);
+
+  //saving favoriteItems to database everytime the favorites changes
+  useEffect(() => {
+    const updateFavoriteItems = async () => {
+      if (!user) return;
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/favorites`,
+        {
+          items: favoriteItems,
+          userId: user?.sub.split("|")[1],
+        }
+      );
+      console.log("response", response.data);
+    };
+    updateFavoriteItems();
+  }, [favoriteItems]);
 
   if (error) {
     return <div>Oops... {error.message}</div>;
@@ -67,6 +129,7 @@ const App = ({ cart, updateCart }) => {
             <Route path="/profile" component={Profile} />
             <Route path="/orders" component={Orders} />
             <Route path="/order/completed" component={OrderCompleted} />
+            <Route path="/order/:orderNumber" component={OrderDetail} />
             <Route path="/rewards" component={Rewards} />
             <Route path="/favorites" component={Favorites} />
             <Route path="/categories/coffee" component={Coffee} />
@@ -75,6 +138,7 @@ const App = ({ cart, updateCart }) => {
             <Route path="/categories/smoothies" component={Smoothies} />
             <Route path="/shoppingcart" component={ShoppingCart} />
             <Route path="/products/:id" component={Details} />
+            <Route path="/search/:name" component={Search} />
           </Switch>
         </Container>
         <Footer />
@@ -86,12 +150,14 @@ const App = ({ cart, updateCart }) => {
 const mapStateToProps = (state) => {
   return {
     cart: state.shop.cart,
+    favoriteItems: state.shop.favoriteItems,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updateCart: (id) => dispatch(updateCart(id)),
+    updateFavorite: (id) => dispatch(updateFavorite(id)),
   };
 };
 

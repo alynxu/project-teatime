@@ -47,3 +47,28 @@ export const emptyCart = (cartItems) => {
     type: actionTypes.EMPTY_CART,
   };
 };
+
+export const addToFavorite = (itemID) => {
+  return {
+    type: actionTypes.ADD_TO_FAVORITE,
+    payload: {
+      id: itemID,
+    },
+  };
+};
+
+export const removeFromFavorite = (itemID) => {
+  return {
+    type: actionTypes.REMOVE_FROM_FAVORITE,
+    payload: {
+      id: itemID,
+    },
+  };
+};
+
+export const updateFavorite = (favoriteItems) => {
+  return {
+    type: actionTypes.UPDATE_FAVORITE,
+    payload: favoriteItems,
+  };
+};

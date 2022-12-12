@@ -9,6 +9,13 @@ module.exports = {
         products: req.body.products,
         order_total: req.body.order_total,
         user: userId,
+        deliveryFirstName: req.body.deliveryFirstName,
+        deliveryLastName: req.body.deliveryLastName,
+        deliveryPhoneNumber: req.body.deliveryPhoneNumber,
+        street: req.body.street,
+        city: req.body.city,
+        state: req.body.state,
+        zip: req.body.zip,
       },
       (err, result) => {
         if (err) {
@@ -35,6 +42,24 @@ module.exports = {
           statusCode: 200,
           error: null,
           response: orders,
+        });
+      }
+    });
+  },
+
+  getOrderById: function (req, res, next) {
+    orderModel.findById(req.params.orderId, function (err, orderInfo) {
+      if (err) {
+        return res.json({
+          statusCode: 200,
+          error: err,
+          response: null,
+        });
+      } else {
+        return res.send({
+          statusCode: 200,
+          error: null,
+          response: orderInfo,
         });
       }
     });
