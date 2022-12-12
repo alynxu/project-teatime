@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "name": "Iced Americano",
+      "imageUrl": "https://i.ibb.co/CBBCN0F/coldbrew.png",
+      "price": 5.99
+    },
+    {
+      "id": 2,
+      "name": "Cold Brew",
+      "imageUrl": "https://i.ibb.co/CBBCN0F/coldbrew.png",
+      "price": 5.99
+    },
+    {
+      "id": 3,
+      "name": "Iced Coffee",
+      "imageUrl": "https://i.ibb.co/CBBCN0F/coldbrew.png",
+      "price": 5.99
+    },
+    {
+      "id": 4,
+      "name": "Iced Espresso",
+      "imageUrl": "https://i.ibb.co/CBBCN0F/coldbrew.png",
+      "price": 5.99
+    }
+]
+   
