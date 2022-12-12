@@ -18,7 +18,7 @@ const Search = ({ products }) => {
 
   return (
     <div>
-      <h1 style={{ color: "#000958" }}>Showing search results for "{name}"</h1>
+      <h2 style={{ color: "#000958" }}>Showing search results for "{name}"</h2>
       {filteredProducts.length > 0 && (
         <Container
           style={{
